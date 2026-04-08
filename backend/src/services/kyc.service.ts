@@ -28,6 +28,7 @@ export const completeKYC = (walletAddress: string) => {
     session.status = "approved";
     kycStore.set(walletAddress, session);
   }
+  console.log("session before update:", session);
 
   return session;
 };

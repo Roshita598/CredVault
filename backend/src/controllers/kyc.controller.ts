@@ -37,8 +37,17 @@ export const getStatus = (req: Request, res: Response) => {
 // Simulate completion (for testing)
 export const simulateKYC = (req: Request, res: Response) => {
   const { walletAddress } = req.body;
+  console.log("simulate called", req.body);
+
+  if (typeof walletAddress !== "string") {
+    return res.status(400).json({ error: "Invalid walletAddress" });
+  }
 
   const session = completeKYC(walletAddress);
+
+  if (!session) {
+    return res.status(404).json({ error: "KYC session not found" });
+  }
 
   res.json(session);
 };

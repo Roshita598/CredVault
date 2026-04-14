@@ -4,10 +4,11 @@ import {
   getKYCStatus,
   completeKYC,
 } from "../services/kyc.service.js";
+import type { AuthRequest } from "../middleware/auth.middleware.js";
 
 // Start KYC
-export const startKYC = (req: Request, res: Response) => {
-  const { walletAddress } = req.body;
+export const startKYC = (req: AuthRequest, res: Response) => {
+  const walletAddress = req.user?.walletAddress;
 
   if (!walletAddress) {
     return res.status(400).json({ error: "walletAddress required" });

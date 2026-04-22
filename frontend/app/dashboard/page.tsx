@@ -23,7 +23,7 @@ export default function Dashboard() {
           users: 45,
           organizations: 10,
         });
-      } catch (err) {
+      } catch {
         console.log("Using dummy data");
         setStats({
           certificates: 120,

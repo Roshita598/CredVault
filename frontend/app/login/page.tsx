@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { API_BASE_URL } from "@/lib/api";
+import { API_ENDPOINTS } from "@/lib/api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,13 +8,17 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/login`, {
+      const res = await fetch(API_ENDPOINTS.authVerify, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
+
+      if (!res.ok) {
+        throw new Error("Login request failed");
+      }
 
       const data = await res.json();
 
